@@ -4,11 +4,16 @@
   
   const navToggle = document.querySelector('.nav-toggle');
   const siteNav = document.querySelector('.site-nav');
+  const mobileBreakpoint = 768;
   
   if (!navToggle || !siteNav) {
     return; // Elements not found, exit
   }
   
+  function isMobileViewport() {
+    return window.innerWidth <= mobileBreakpoint;
+  }
+
   // Toggle menu function
   function toggleMenu() {
     const isOpen = siteNav.classList.contains('is-open');
@@ -21,6 +26,11 @@
       navToggle.setAttribute('aria-expanded', 'true');
     }
   }
+
+  function closeMenu() {
+    siteNav.classList.remove('is-open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  }
   
   // Toggle menu on button click
   navToggle.addEventListener('click', toggleMenu);
@@ -29,12 +39,32 @@
   const navLinks = siteNav.querySelectorAll('.nav-link');
   navLinks.forEach(function(link) {
     link.addEventListener('click', function() {
-      // Only close on mobile (check window width)
-      if (window.innerWidth <= 768) {
-        siteNav.classList.remove('is-open');
-        navToggle.setAttribute('aria-expanded', 'false');
+      if (isMobileViewport()) {
+        closeMenu();
       }
     });
+  });
+
+  document.addEventListener('click', function(event) {
+    if (!isMobileViewport()) {
+      return;
+    }
+
+    if (!siteNav.classList.contains('is-open')) {
+      return;
+    }
+
+    if (siteNav.contains(event.target) || navToggle.contains(event.target)) {
+      return;
+    }
+
+    closeMenu();
+  });
+
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+      closeMenu();
+    }
   });
   
   // Close menu when window is resized to desktop size
@@ -42,9 +72,8 @@
   window.addEventListener('resize', function() {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(function() {
-      if (window.innerWidth > 768) {
-        siteNav.classList.remove('is-open');
-        navToggle.setAttribute('aria-expanded', 'false');
+      if (!isMobileViewport()) {
+        closeMenu();
       }
     }, 250);
   });
