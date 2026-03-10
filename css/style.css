@@ -5,8 +5,8 @@
   --muted: #666;
   --border: #e0e0e0;
   --border-light: #f0f0f0;
-  --ring: rgba(14, 165, 164, 0.35);
-  --primary-700: #0d9488;
+  --ring: rgba(79, 151, 189, 0.28);
+  --primary-700: #151b33;
   
   /* Spacing */
   --spacing-xs: 8px;
@@ -107,8 +107,8 @@ section:last-child {
   align-items: center;
   justify-content: space-between;
   gap: var(--spacing-lg);
-  padding: var(--spacing-lg) 0;
-  min-height: 80px;
+  padding: 20px 0;
+  min-height: 112px;
 }
 
 /* Brand / Logo */
@@ -118,23 +118,28 @@ section:last-child {
   gap: 12px;
   text-decoration: none;
   transition: opacity var(--transition), transform var(--transition);
-  min-height: 56px;
+  min-height: 76px;
+  flex-shrink: 0;
+  padding: 8px 0;
 }
 
 .brand:hover {
-  opacity: 0.85;
-  transform: scale(1.02);
+  opacity: 0.96;
+  transform: translateY(-1px);
 }
 
 .brand-logo {
-  height: 32px;
-  width: auto;
+  width: clamp(220px, 26vw, 310px);
+  height: auto;
+  max-width: 100%;
   display: block;
-  transition: transform var(--transition);
+  filter: drop-shadow(0 10px 20px rgba(30, 36, 67, 0.08));
+  transition: transform var(--transition), filter var(--transition);
 }
 
 .brand-logo:hover {
-  transform: scale(1.02);
+  transform: scale(1.03);
+  filter: drop-shadow(0 16px 28px rgba(30, 36, 67, 0.14));
 }
 
 .brand-logo[style*="display: none"] {
@@ -171,20 +176,20 @@ section:last-child {
 /* Navigation Toggle Button */
 .nav-toggle {
   display: none;
-  background: none;
-  border: 1px solid var(--border);
+  background: linear-gradient(135deg, rgba(30, 36, 67, 0.06), rgba(79, 151, 189, 0.12));
+  border: 1px solid rgba(30, 36, 67, 0.14);
   border-radius: var(--radius-md);
   padding: var(--spacing-sm) var(--spacing-md);
   font-size: 1rem;
-  font-weight: 500;
-  color: var(--text);
+  font-weight: 700;
+  color: var(--primary);
   cursor: pointer;
   transition: all var(--transition);
 }
 
 .nav-toggle:hover {
-  background: var(--surface);
-  border-color: var(--primary);
+  background: linear-gradient(135deg, rgba(30, 36, 67, 0.1), rgba(79, 151, 189, 0.18));
+  border-color: rgba(79, 151, 189, 0.35);
 }
 
 .nav-toggle:focus {
@@ -383,9 +388,10 @@ main {
 }
 
 .btn-primary {
-  background: linear-gradient(180deg, var(--primary), var(--primary-700));
+  background: linear-gradient(135deg, var(--primary-700) 0%, var(--primary) 58%, var(--accent) 100%);
   color: #fff;
-  box-shadow: 0 10px 26px rgba(30, 64, 175, 0.20);
+  border-color: rgba(30, 36, 67, 0.2);
+  box-shadow: 0 16px 34px rgba(30, 36, 67, 0.22);
 }
 
 .btn-primary * {
@@ -394,16 +400,16 @@ main {
 
 .btn-primary:hover {
   color: #fff;
-  background: linear-gradient(180deg, var(--primary-700), var(--primary));
-  transform: translateY(-1px);
-  box-shadow: 0 14px 34px rgba(30, 64, 175, 0.26);
+  background: linear-gradient(135deg, #11182d 0%, var(--primary-700) 42%, var(--accent) 100%);
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 20px 40px rgba(30, 36, 67, 0.28);
 }
 
 .btn-primary:active {
   color: #fff;
-  background: linear-gradient(180deg, var(--primary), var(--primary-700));
+  background: linear-gradient(135deg, var(--primary-700) 0%, var(--primary) 58%, var(--accent) 100%);
   transform: translateY(0);
-  box-shadow: 0 8px 20px rgba(30, 64, 175, 0.18);
+  box-shadow: 0 10px 22px rgba(30, 36, 67, 0.2);
 }
 
 .btn-primary:focus-visible {
@@ -411,13 +417,14 @@ main {
 }
 
 .btn-secondary {
-  background: var(--surface);
+  background: linear-gradient(135deg, rgba(30, 36, 67, 0.03), rgba(79, 151, 189, 0.09));
   color: var(--primary);
-  border-color: rgba(30, 64, 175, 0.25);
+  border-color: rgba(79, 151, 189, 0.28);
 }
 
 .btn-secondary:hover {
-  border-color: rgba(30, 64, 175, 0.40);
+  background: linear-gradient(135deg, rgba(30, 36, 67, 0.07), rgba(79, 151, 189, 0.14));
+  border-color: rgba(79, 151, 189, 0.38);
   transform: translateY(-1px);
 }
 
@@ -838,11 +845,16 @@ main a:focus-visible {
   }
   
   .brand {
-    min-height: 48px;
+    min-height: 60px;
+    padding: 4px 0;
   }
   
+  .brand-logo {
+    width: clamp(188px, 48vw, 250px);
+  }
+
   .brand-text {
-    font-size: 28px;
+    font-size: 24px;
   }
   
   .nav-toggle {
@@ -889,6 +901,10 @@ main a:focus-visible {
 }
 
 @media (max-width: 480px) {
+  .brand-logo {
+    width: clamp(172px, 54vw, 220px);
+  }
+
   .site-nav .nav-link {
     padding: var(--spacing-xs) var(--spacing-sm);
     font-size: 0.875rem;
